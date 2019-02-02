@@ -1,0 +1,14 @@
+.ComicToggler__toggler {
+  align-self: center;
+  font-size: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.ComicToggler__loader {
+  height: 30px;
+  width: 30px;
+  line-height: 30px;
+  font-size: 30px;
+  align-self: center;
+}

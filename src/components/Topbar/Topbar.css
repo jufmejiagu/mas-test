@@ -1,0 +1,14 @@
+.Topbar {
+  height: 60px;
+  top: 0px;
+  position: fixed;
+  box-shadow: 0px 2px 6px lightgrey;
+  background-color: white;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+
+.Topbar img {
+  max-height: 60px;
+}

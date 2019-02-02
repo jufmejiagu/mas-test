@@ -1,0 +1,23 @@
+.ComicRating {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  margin-bottom: 15px;
+}
+.ComicRating > span {
+  display: inline-block;
+  position: relative;
+  width: 1.1em;
+  font-size: 29px;
+  cursor: pointer;
+}
+
+.ComicRating__star--filled:before {
+  content: "\2605";
+  position: absolute;
+}
+
+.ComicRating > span:hover:before,
+.ComicRating > span:hover ~ span:before {
+   content: "\2605";
+   position: absolute;
+}
