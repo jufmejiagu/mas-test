@@ -7,6 +7,8 @@ const ComicToggler = props =>
   props.loading ?
     <Loader block="ComicToggler" />
   :
-    <span className="ComicToggler__toggler" onClick={props.onToggleActualComic}>Cambiar</span>
+    <span className="ComicToggler__toggler" onClick={props.onToggleActualComic}>
+      {props.error ? 'Reintentar' : 'Cambiar'}
+    </span>
 
 export default ComicToggler;

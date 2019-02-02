@@ -6,23 +6,36 @@ import ComicToggler from '../ComicToggler/ComicToggler';
 import BottomBar from '../BottomBar/BottomBar';
 
 import './PrincipalPage.css';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 class PrincipalPage extends Component {
 
   state = {
     loading: true,
+    maxNumberOfComics: 0,
+    actualComic: null,
+    error: null,
   }
 
   async componentDidMount() {
-    const { num }  =  await XKCDApi.getBasicApiInfo();
 
-    const actualComic = await XKCDApi.getRandomComic(num);
+    try {
+      const { num }  =  await XKCDApi.getBasicApiInfo();
 
-    this.setState({
-      maxNumberOfComics: num,
-      loading: false,
-      actualComic,
-    });
+      const actualComic = await XKCDApi.getRandomComic(num);
+  
+      this.setState({
+        maxNumberOfComics: num,
+        loading: false,
+        actualComic,
+      });
+    } catch(e) {
+      this.setState({
+        error: true,
+        loading: false,
+      });
+    }
+    
   }
 
   onToggleActualComic = () => {
@@ -30,11 +43,23 @@ class PrincipalPage extends Component {
       loading: true,
       actualComic: null,
     }, async () => {
-      const actualComic = await XKCDApi.getRandomComic(this.state.maxNumberOfComics);
-      this.setState({
-        loading: false,
-        actualComic
-      });
+      try {
+        let maxNumberOfComics = this.state;
+        if (maxNumberOfComics === 0) {
+          let { num } =  await XKCDApi.getBasicApiInfo();
+          maxNumberOfComics = num;
+        } 
+        const actualComic = await XKCDApi.getRandomComic(maxNumberOfComics);
+        this.setState({
+          loading: false,
+          actualComic,
+        });
+      } catch(e) {
+        this.setState({
+          error: true,
+          loading: false,
+        });
+      }
     });
   }
 
@@ -43,10 +68,17 @@ class PrincipalPage extends Component {
     const {
       loading,
       actualComic,
+      error,
     } = this.state;
 
     return (
       <div className="PrincipalPage">
+        {error &&
+          <ErrorMessage
+            message="Ups! Estamos teniendo problemas con los comics, intentalo de nuevo"
+            onClick={this.onToggleActualComic}
+          />
+        }
         {actualComic &&
           <Comic
             comic={actualComic}
@@ -56,6 +88,7 @@ class PrincipalPage extends Component {
           <ComicToggler
             onToggleActualComic={this.onToggleActualComic}
             loading={loading}
+            error={error}
           />
         </BottomBar>
         
