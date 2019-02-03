@@ -25,9 +25,10 @@ class ComicRating extends Component {
     } = this.state;
 
     return (
-      <div class="ComicRating">
+      <div className="ComicRating">
         {['☆', '☆', '☆', '☆', '☆'].map((star, index) =>
           <span
+            key={`Comic-Rating-${index}`}
             onClick={() => this.onQualify(index)}
             className={isQualified && qualification <= index ? "ComicRating__star--filled" : ""}
           >

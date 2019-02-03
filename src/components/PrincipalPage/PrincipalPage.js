@@ -44,7 +44,7 @@ class PrincipalPage extends Component {
       actualComic: null,
     }, async () => {
       try {
-        let maxNumberOfComics = this.state;
+        let maxNumberOfComics = this.state.maxNumberOfComics;
         if (maxNumberOfComics === 0) {
           let { num } =  await XKCDApi.getBasicApiInfo();
           maxNumberOfComics = num;
@@ -53,6 +53,7 @@ class PrincipalPage extends Component {
         this.setState({
           loading: false,
           actualComic,
+          maxNumberOfComics,
         });
       } catch(e) {
         this.setState({

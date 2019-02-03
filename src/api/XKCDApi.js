@@ -8,6 +8,8 @@ export const XKCDApi = {
 
   getRandomComic: async maxComicNumber => {
     const comicNumber = Math.round(Math.random() * (maxComicNumber));
+      console.log(maxComicNumber);
+      console.log(comicNumber);
     return await fetchAsync(`${comicNumber}/info.0.json`)
   },
 

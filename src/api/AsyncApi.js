@@ -8,7 +8,6 @@ async function fetchAsync(url, method = 'GET', bodyData = null, controller) {
     }),
   };
 
-
   if (bodyData) {
     request.body = JSON.stringify(bodyData);
   }
